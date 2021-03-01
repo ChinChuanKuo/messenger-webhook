@@ -4,17 +4,14 @@
 const
     express = require('express'),
     bodyParser = require('body-parser'),
+    router = express.Router(),
+    path = require('path'),
     app = express().use(bodyParser.json()); // creates express http server
 
 // Sets server port and logs message on success
 app.listen(process.env.PORT || 1337, () => console.log('webhook is listening'));
 
-app.get('/index.html', (req, res) => {
-    var urlpath = url.parse(req.url).pathname;
-    var localpath = path.join(process.cwd(), urlpath);
-    console.log(localpath);
-    path.exists(localpath, function (result) { getFile(result, res, localpath) });
-});
+app.get('/', (req, res) => res.sendFile(path.join(`${__dirname}/index.html`)));
 
 // Creates the endpoint for our webhook 
 app.post('/webhook', (req, res) => {
