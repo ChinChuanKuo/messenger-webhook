@@ -9,6 +9,13 @@ const
 // Sets server port and logs message on success
 app.listen(process.env.PORT || 1337, () => console.log('webhook is listening'));
 
+app.get('/index.html', (req, res) => {
+    var urlpath = url.parse(req.url).pathname;
+    var localpath = path.join(process.cwd(), urlpath);
+    console.log(localpath);
+    path.exists(localpath, function (result) { getFile(result, res, localpath) });
+});
+
 // Creates the endpoint for our webhook 
 app.post('/webhook', (req, res) => {
     let body = req.body;
