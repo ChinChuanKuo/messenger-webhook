@@ -1,6 +1,5 @@
-const
-    message = require('../services/messageService'),
-    config = require('../config/config');
+import config from '../config/config';
+import message from '../services/messageService';
 
 let getWebhook = (req, res) => {
     // Parse the query params

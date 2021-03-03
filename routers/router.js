@@ -1,13 +1,12 @@
-const
-    path = require('path'),
-    express = require('express'),
-    sourcePath = path.resolve(__dirname, '../views'),
-    webhook = require('../controllers/webhookController');
+import path from 'path';
+import express from 'express';
+import webhook from '../controllers/webhookController';
+
+const sourcePath = path.resolve(__dirname, '../views');
 
 let router = express.Router();
 
 let initRouters = app => {
-    console.log(sourcePath);
     router.get('/', (req, res) => res.sendFile(path.join(`${sourcePath}/index.html`)));
     router.post('/webhook', webhook.postWebhook);
     router.get('/webhook', webhook.getWebhook);
