@@ -1,6 +1,5 @@
-const
-    request = require('request'),
-    config = require('../config/config');
+import request from 'request';
+import config from '../config/config';
 
 let handleMessage = (sender_psid, received_message) => {
     let response;
