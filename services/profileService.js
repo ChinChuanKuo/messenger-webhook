@@ -6,7 +6,7 @@ let VERIFY_TOKEN = process.env.VERIFY_TOKEN;
 let handleSetupProfileAPI = () => {
     return new Promise((resolve, reject) => {
         try {
-            let url = `https://graph.facebook.com/v8.0/me/messenger_profile?access_token=${VERIFY_TOKEN}`;
+            let url = `https://graph.facebook.com/v10.0/me/messenger_profile?access_token=${VERIFY_TOKEN}`;
             let request_body = {
                 "get_started": {
                     "payload": "GET_STARTED"
