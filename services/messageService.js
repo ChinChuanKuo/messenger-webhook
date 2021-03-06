@@ -17,7 +17,23 @@ let handleTokenAPI = (mode, token, challenge, res) => {
 }
 
 let handleMessageAPI = async (sender_psid, received_message) => {
-    let response;
+    if (received_message && received_message.quick_reply && received_message.quick_reply.payload) {
+        let payload = received_message.quick_reply.payload;
+        switch (payload) {
+            case "CATEGORIES":
+                await chatbot.sendCategoriesAPI(sender_psid);
+                break;
+            case "LOOKUP_ORDER":
+                await chatbot.sendLookupOrderAPI(sender_psid);
+                break;
+            case "TALK_AGENT":
+                await chatbot.requestTalkToAgentAPI(sender_psid);
+                break;
+        }
+        return;
+    }
+
+    /*let response;
     // Check if the message contains text
     if (received_message.text) {
         // Create the payload for a basic text message
@@ -54,7 +70,7 @@ let handleMessageAPI = async (sender_psid, received_message) => {
         }
     }
     // Sends the response message
-    await chatbot.sendMessageAPI(sender_psid, response);
+    await chatbot.sendMessageAPI(sender_psid, response);*/
 }
 
 // Handles messaging_postbacks events
