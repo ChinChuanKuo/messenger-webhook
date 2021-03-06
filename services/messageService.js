@@ -1,5 +1,6 @@
 require('dotenv').config();
 import request from 'request';
+import profile from '../services/profileService';
 
 let VERIFY_TOKEN = process.env.VERIFY_TOKEN;
 
@@ -58,7 +59,7 @@ let handleMessageAPI = (sender_psid, received_message) => {
 }
 
 // Handles messaging_postbacks events
-let handlePostbackAPI = (sender_psid, received_postback) => {
+let handlePostbackAPI = async (sender_psid, received_postback) => {
     let response;
 
     // Get the payload for the postback
@@ -73,7 +74,8 @@ let handlePostbackAPI = (sender_psid, received_postback) => {
             response = { "text": "Oops, try sending another image." };
             break;
         case "GET_STARTED":
-            response = { "text": "hi there. Welcome ABC to my Tech shop page" };
+            let username = await profile.getFacebookUsername(sender_psid);
+            response = { "text": `hi there. Welcome ${username} to my Tech shop page` };
             break;
         default:
             console.log("run default switch case");

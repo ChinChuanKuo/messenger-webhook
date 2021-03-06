@@ -44,7 +44,6 @@ let handleSetupProfileAPI = () => {
                 "json": request_body
             }, (err, res, body) => {
                 if (!err) {
-                    console.log(body);
                     resolve("Done!")
                 } else {
                     console.error("Unable to send message:" + err);
@@ -56,6 +55,32 @@ let handleSetupProfileAPI = () => {
     });
 };
 
+let getFacebookUsername = sender_psid => {
+    //curl -X GET "https://graph.facebook.com/<PSID>?fields=first_name,last_name,profile_pic&access_token=<PAGE_ACCESS_TOKEN>"
+
+    return new Promise((resolve, reject) => {
+        try {
+            let url = `https://graph.facebook.com/${sender_psid}?fields=first_name,last_name,profile_pic&access_token=${VERIFY_TOKEN}`;
+            request({
+                "uri": url,
+                "method": "GET",
+            }, (err, res, body) => {
+                if (!err) {
+                    body = Json.parse(body);
+                    let username = `${body.last_name} ${body.first_name}`;
+                    resolve(username);
+                } else {
+                    console.error("Unable to send message:" + err);
+                }
+            });
+        }
+        catch (e) {
+            reject(e);
+        }
+    });
+};
+
 module.exports = {
-    handleSetupProfileAPI: handleSetupProfileAPI
+    handleSetupProfileAPI: handleSetupProfileAPI,
+    getFacebookUsername: getFacebookUsername,
 };
