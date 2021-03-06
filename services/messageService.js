@@ -1,9 +1,22 @@
 require('dotenv').config();
 import request from 'request';
 
-let PAGE_ACCESS_TOKEN = process.env.VERIFY_TOKEN;
+let VERIFY_TOKEN = process.env.VERIFY_TOKEN;
 
-let handleMessage = (sender_psid, received_message) => {
+let handleTokenAPI = (mode, token, challenge, res) => {
+    if (mode && token) {
+        // Checks the mode and token sent is correct
+        if (mode === 'subscribe' && token === VERIFY_TOKEN) {
+            // Responds with the challenge token from the request
+            res.status(200).send(challenge);
+        } else {
+            // Responds with '403 Forbidden' if verify tokens do not match
+            res.sendStatus(403);
+        }
+    }
+}
+
+let handleMessageAPI = (sender_psid, received_message) => {
     let response;
     // Check if the message contains text
     if (received_message.text) {
@@ -45,7 +58,7 @@ let handleMessage = (sender_psid, received_message) => {
 }
 
 // Handles messaging_postbacks events
-let handlePostback = (sender_psid, received_postback) => {
+let handlePostbackAPI = (sender_psid, received_postback) => {
     let response;
 
     // Get the payload for the postback
@@ -59,7 +72,7 @@ let handlePostback = (sender_psid, received_postback) => {
     }
     // Send the message to acknowledge the postback
     callSendAPI(sender_psid, response);
-}
+};
 
 // Sends response messages via the Send API
 let callSendAPI = (sender_psid, response) => {
@@ -73,7 +86,7 @@ let callSendAPI = (sender_psid, response) => {
     // Send the HTTP request to the Messenger Platform
     request({
         "uri": "https://graph.facebook.com/v2.6/me/messages",
-        "qs": { "access_token": PAGE_ACCESS_TOKEN },
+        "qs": { "access_token": VERIFY_TOKEN },
         "method": "POST",
         "json": request_body
     }, (err, res, body) => {
@@ -83,9 +96,10 @@ let callSendAPI = (sender_psid, response) => {
             console.error("Unable to send message:" + err);
         }
     });
-}
+};
 
 module.exports = {
-    handleMessage: handleMessage,
-    handlePostback: handlePostback
+    handleTokenAPI: handleTokenAPI,
+    handleMessageAPI: handleMessageAPI,
+    handlePostbackAPI: handlePostbackAPI
 };
