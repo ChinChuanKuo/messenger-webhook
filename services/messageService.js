@@ -1,5 +1,5 @@
 require('dotenv').config();
-import request from 'request';
+import chatbot from 'chatbotService';
 import profile from './profileService';
 
 let VERIFY_TOKEN = process.env.VERIFY_TOKEN;
@@ -74,41 +74,14 @@ let handlePostbackAPI = async (sender_psid, received_postback) => {
             response = { "text": "Oops, try sending another image." };
             break;
         case "GET_STARTED":
-            let profiles = await profile.handleFacebookProfileAPI(sender_psid);
-            response = { "text": `hi there. Welcome ${profiles} to my Tech shop page` };
+            await chatbot.sendMessageNewUserAPI(sender_psid);
             break;
         default:
             console.log("run default switch case");
             break;
     }
     // Send the message to acknowledge the postback
-    callSendAPI(sender_psid, response);
-};
-
-// Sends response messages via the Send API
-let callSendAPI = async (sender_psid, response) => {
-    await profile.handleMessageReadAPI(sender_psid);
-    await profile.handleTypingOnAPI(sender_psid);
-    // Construct the message body
-    let request_body = {
-        "recipient": {
-            "id": sender_psid
-        },
-        "message": response
-    }
-    // Send the HTTP request to the Messenger Platform
-    request({
-        "uri": "https://graph.facebook.com/v2.6/me/messages",
-        "qs": { "access_token": VERIFY_TOKEN },
-        "method": "POST",
-        "json": request_body
-    }, (err, res, body) => {
-        if (!err) {
-            console.log('message sent!')
-        } else {
-            console.error("Unable to send message:" + err);
-        }
-    });
+    await chatbot.sendMessageAPI(sender_psid, response);
 };
 
 module.exports = {
