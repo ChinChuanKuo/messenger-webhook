@@ -44,7 +44,7 @@ let handleSetupProfileAPI = () => {
                 "json": request_body
             }, (err, res, body) => {
                 if (!err) {
-                    console.log(`body:${body}`);
+                    console.log(body);
                     resolve("Done!")
                 } else {
                     console.error("Unable to send message:" + err);
