@@ -24,7 +24,6 @@ let handlePostMessage = async (req, res) => {
 
             let sender_psid = webhook_event.sender.id;
             //console.log(`Sender PSID: ${sender_psid}`);
-            profile.handleSetupProfileAPI(sender_psid);
 
             if (webhook_event.message) {
                 message.handleMessageAPI(sender_psid, webhook_event.message);

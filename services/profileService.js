@@ -3,12 +3,14 @@ import request from 'request';
 
 let VERIFY_TOKEN = process.env.VERIFY_TOKEN;
 
-let handleSetupProfileAPI = sender_psid => {
-    return new Promise(async (resolve, reject) => {
+let handleSetupProfileAPI = () => {
+    return new Promise((resolve, reject) => {
         try {
-            let url = `https://graph.facebook.com/v10.0/me/custom_user_settings?access_token=${VERIFY_TOKEN}`;
+            let url = `https://graph.facebook.com/v2.6/me/messenger_profile?access_token=${VERIFY_TOKEN}`;
             let request_body = {
-                "psid": sender_psid,
+                "get_started": {
+                    "payload": "GET_STARTED"
+                },
                 "persistent_menu": [
                     {
                         "locale": "default",
@@ -17,34 +19,30 @@ let handleSetupProfileAPI = sender_psid => {
                             {
                                 "type": "postback",
                                 "title": "Talk to an agent",
-                                "payload": "TALK_AGENT"
+                                "payload": "CARE_HELP"
                             },
                             {
                                 "type": "postback",
                                 "title": "Restart this conversation",
-                                "payload": "RESTART_CONVERSATION"
+                                "payload": "CURATION"
                             },
                             {
-                                "type": "nested",
-                                "title": "More info",
-                                "call_to_actions":
-                                    [
-                                        {
-                                            "type": "web_url",
-                                            "title": "View Facebook Fan Page",
-                                            "url": "https://www.facebook.com/%E5%AF%A7%E5%A4%8F%E5%A4%9C%E5%B8%82-%E5%86%B0%E5%93%A8%E9%85%AA%E6%A2%A8%E7%89%9B%E5%A5%B6-100576312087765/",
-                                            "webview_height_ratio": "full"
-                                        },
-                                        {
-                                            "type": "web_url",
-                                            "title": "View youtube channel",
-                                            "url": "https://www.youtube.com/",
-                                            "webview_height_ratio": "full"
-                                        },
-                                    ]
+                                "type": "web_url",
+                                "title": "View Facebook Fan Page",
+                                "url": "https://www.facebook.com/%E5%AF%A7%E5%A4%8F%E5%A4%9C%E5%B8%82-%E5%86%B0%E5%93%A8%E9%85%AA%E6%A2%A8%E7%89%9B%E5%A5%B6-100576312087765/",
+                                "webview_height_ratio": "full"
+                            },
+                            {
+                                "type": "web_url",
+                                "title": "View youtube channel",
+                                "url": "https://www.youtube.com/",
+                                "webview_height_ratio": "full"
                             }
                         ]
                     }
+                ],
+                "whitelisted_domains": [
+                    "https://messenger-webhook-bot.herokuapp.com/profile",
                 ]
             };
             request({
@@ -53,7 +51,6 @@ let handleSetupProfileAPI = sender_psid => {
                 "json": request_body
             }, (err, res, body) => {
                 if (!err) {
-                    console.log(body);
                     resolve("Done!")
                 } else {
                     console.error("Unable to send message:" + err);
