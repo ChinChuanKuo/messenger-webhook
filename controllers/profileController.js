@@ -2,8 +2,8 @@ import profile from '../services/profileService';
 
 let handleSetupProfile = async (req, res) => {
     try {
-        await profile.handleSetupProfile();
-        return res.redirect("/profile");
+        await profile.handleSetupProfileAPI();
+        return res.redirect("/");
     } catch (e) {
         console.error(e);
     }
