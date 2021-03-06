@@ -65,10 +65,19 @@ let handlePostbackAPI = (sender_psid, received_postback) => {
     let payload = received_postback.payload;
 
     // Set the response based on the postback payload
-    if (payload === 'yes') {
-        response = { "text": "Thanks!" }
-    } else if (payload === 'no') {
-        response = { "text": "Oops, try sending another image." }
+    switch (payload) {
+        case "yes":
+            response = { "text": "Thanks!" };
+            break;
+        case "no":
+            response = { "text": "Oops, try sending another image." };
+            break;
+        case "GET_STARTED":
+            response = { "text": "hi there. Welcome ABC to my Tech shop page" };
+            break;
+        default:
+            console.log("run default switch case");
+            break;
     }
     // Send the message to acknowledge the postback
     callSendAPI(sender_psid, response);
@@ -91,9 +100,9 @@ let callSendAPI = (sender_psid, response) => {
         "json": request_body
     }, (err, res, body) => {
         if (!err) {
-            //console.log('message sent!')
+            console.log('message sent!')
         } else {
-            //console.error("Unable to send message:" + err);
+            console.error("Unable to send message:" + err);
         }
     });
 };
