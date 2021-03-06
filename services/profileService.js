@@ -19,12 +19,12 @@ let handleSetupProfileAPI = () => {
                             {
                                 "type": "postback",
                                 "title": "Talk to an agent",
-                                "payload": "CARE_HELP"
+                                "payload": "TALK_AGENT"
                             },
                             {
                                 "type": "postback",
                                 "title": "Restart this conversation",
-                                "payload": "CURATION"
+                                "payload": "RESTART_CONVERSATION"
                             },
                             {
                                 "type": "nested",
@@ -41,7 +41,7 @@ let handleSetupProfileAPI = () => {
                                         "title": "View youtube channel",
                                         "url": "https://www.youtube.com/",
                                         "webview_height_ratio": "full"
-                                    }
+                                    },
                                 ]
                             }
                         ]
