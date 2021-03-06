@@ -1,3 +1,4 @@
+require('dotenv').config();
 import request from 'request';
 
 let VERIFY_TOKEN = process.env.VERIFY_TOKEN;
