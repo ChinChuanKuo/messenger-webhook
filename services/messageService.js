@@ -19,16 +19,13 @@ let handleTokenAPI = (mode, token, challenge, res) => {
 let handleMessageAPI = async (sender_psid, received_message) => {
     if (received_message && received_message.quick_reply && received_message.quick_reply.payload) {
         let payload = received_message.quick_reply.payload;
-        switch (payload) {
-            case "CATEGORIES":
-                await chatbot.sendCategoriesAPI(sender_psid);
-                break;
-            case "LOOKUP_ORDER":
-                await chatbot.sendLookupOrderAPI(sender_psid);
-                break;
-            case "TALK_AGENT":
-                await chatbot.requestTalkToAgentAPI(sender_psid);
-                break;
+        console.log(payload);
+        if (payload === "CATEGORIES") {
+            await chatbot.sendCategoriesAPI(sender_psid);
+        } else if (payload === "LOOKUP_ORDER") {
+            await chatbot.sendLookupOrderAPI(sender_psid);
+        } else if (payload === "TALK_AGENT") {
+            await chatbot.requestTalkToAgentAPI(sender_psid);
         }
         return;
     }
