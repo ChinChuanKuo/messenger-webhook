@@ -29,7 +29,8 @@ let handleSetupProfileAPI = () => {
                             {
                                 "type": "nested",
                                 "title": "More info",
-                                "call_to_actions": [
+                                "call_to_actions": 
+                                [
                                     {
                                         "type": "web_url",
                                         "title": "View Facebook Fan Page",
