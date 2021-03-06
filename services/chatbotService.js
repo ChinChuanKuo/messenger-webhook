@@ -98,7 +98,7 @@ let sendCategoriesAPI = sender_psid => {
                         "elements": [
                             {
                                 "title": "Welcome 1!",
-                                "image_url": "https://petersfancybrownhats.com/company_image.png",
+                                "image_url": "https://im2.book.com.tw/image/getImage?i=https://www.books.com.tw/img/E05/008/87/E050088731.jpg&v=60360eb7&w=180&h=180",
                                 "subtitle": "We have the right hat for everyone.",
                                 "default_action": {
                                     "type": "web_url",
@@ -121,7 +121,7 @@ let sendCategoriesAPI = sender_psid => {
                             },
                             {
                                 "title": "Welcome 2!",
-                                "image_url": "https://petersfancybrownhats.com/company_image.png",
+                                "image_url": "https://im1.book.com.tw/image/getImage?i=https://www.books.com.tw/img/E05/008/85/E050088574.jpg&v=60346c83&w=180&h=180",
                                 "subtitle": "We have the right hat for everyone.",
                                 "default_action": {
                                     "type": "web_url",
@@ -144,7 +144,7 @@ let sendCategoriesAPI = sender_psid => {
                             },
                             {
                                 "title": "Welcome 3!",
-                                "image_url": "https://petersfancybrownhats.com/company_image.png",
+                                "image_url": "https://im1.book.com.tw/image/getImage?i=https://www.books.com.tw/img/E05/008/85/E050088562.jpg&v=6034695d&w=180&h=180",
                                 "subtitle": "We have the right hat for everyone.",
                                 "default_action": {
                                     "type": "web_url",
