@@ -23,9 +23,30 @@ let sendMessageNewUserAPI = sender_psid => {
             let response3 = {
                 "text": "At ant time, use menu below to navigate through the features."
             };
+            let response4 = {
+                "text": "What can I do to help you today?",
+                "quick_replies": [
+                    {
+                        "content_type": "text",
+                        "title": "Categories",
+                        "payload": "CATEGORIES",
+                    },
+                    {
+                        "content_type": "text",
+                        "title": "Lookup Order",
+                        "payload": "LOOKUP_ORDER",
+                    },
+                    {
+                        "content_type": "text",
+                        "title": "Talk to an agent",
+                        "payload": "TALK_AGENT",
+                    },
+                ]
+            };
             await sendMessageAPI(sender_psid, response1);
             await sendMessageAPI(sender_psid, response2);
             await sendMessageAPI(sender_psid, response3);
+            await sendMessageAPI(sender_psid, response4);
             resolve("done");
         }
         catch (e) {
