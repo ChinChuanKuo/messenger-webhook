@@ -10,7 +10,7 @@ let initialRouters = app => {
     router.get('/profile', screen.profileScreen)
     router.get('/message', message.handleGetMessage);
     router.post('/message', message.handlePostMessage);
-    router.post('/set_up_profile', profile.handleSetupProfile);
+    //router.post('/set_up_profile', profile.handleSetupProfile);
     return app.use("/", router);
 };
 

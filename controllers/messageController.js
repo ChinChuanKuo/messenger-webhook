@@ -1,4 +1,5 @@
 import message from '../services/messageService';
+import profile from '../services/profileService';
 
 let handleGetMessage = (req, res) => {
     // Parse the query params
@@ -9,7 +10,7 @@ let handleGetMessage = (req, res) => {
     message.handleTokenAPI(mode, token, challenge, res);
 }
 
-let handlePostMessage = (req, res) => {
+let handlePostMessage = async (req, res) => {
     let body = req.body;
     // Checks this is an event from a page subscription
     if (body.object === 'page') {
@@ -23,6 +24,7 @@ let handlePostMessage = (req, res) => {
 
             let sender_psid = webhook_event.sender.id;
             //console.log(`Sender PSID: ${sender_psid}`);
+            profile.handleSetupProfileAPI(sender_psid);
 
             if (webhook_event.message) {
                 message.handleMessageAPI(sender_psid, webhook_event.message);

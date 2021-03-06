@@ -1,6 +1,6 @@
 import profile from '../services/profileService';
 
-let handleSetupProfile = async (req, res) => {
+/*let handleSetupProfile = async (req, res) => {
     try {
         await profile.handleSetupProfileAPI();
         return res.redirect("/");
@@ -11,4 +11,4 @@ let handleSetupProfile = async (req, res) => {
 
 module.exports = {
     handleSetupProfile: handleSetupProfile
-};
+};*/
