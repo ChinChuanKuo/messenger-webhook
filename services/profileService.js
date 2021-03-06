@@ -66,7 +66,7 @@ let getFacebookUsername = sender_psid => {
                 "method": "GET",
             }, (err, res, body) => {
                 if (!err) {
-                    body = Json.parse(body);
+                    body = JSON.parse(body);
                     let username = `${body.last_name} ${body.first_name}`;
                     resolve(username);
                 } else {
