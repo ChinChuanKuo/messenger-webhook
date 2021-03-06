@@ -1,5 +1,6 @@
 require('dotenv').config();
 import request from 'request';
+import profile from './profileService';
 
 let VERIFY_TOKEN = process.env.VERIFY_TOKEN;
 
