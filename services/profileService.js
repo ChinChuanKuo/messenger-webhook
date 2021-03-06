@@ -6,7 +6,7 @@ let VERIFY_TOKEN = process.env.VERIFY_TOKEN;
 let handleSetupProfileAPI = () => {
     return new Promise((resolve, reject) => {
         try {
-            let url = `https://graph.facebook.com/v2.6/me/messenger_profile?access_token=${VERIFY_TOKEN}`;
+            let url = `https://graph.facebook.com/v8.0/me/messenger_profile?access_token=${VERIFY_TOKEN}`;
             let request_body = {
                 "get_started": {
                     "payload": "GET_STARTED"
@@ -29,21 +29,21 @@ let handleSetupProfileAPI = () => {
                             {
                                 "type": "nested",
                                 "title": "More info",
-                                "call_to_actions": 
-                                [
-                                    {
-                                        "type": "web_url",
-                                        "title": "View Facebook Fan Page",
-                                        "url": "https://www.facebook.com/%E5%AF%A7%E5%A4%8F%E5%A4%9C%E5%B8%82-%E5%86%B0%E5%93%A8%E9%85%AA%E6%A2%A8%E7%89%9B%E5%A5%B6-100576312087765/",
-                                        "webview_height_ratio": "full"
-                                    },
-                                    {
-                                        "type": "web_url",
-                                        "title": "View youtube channel",
-                                        "url": "https://www.youtube.com/",
-                                        "webview_height_ratio": "full"
-                                    },
-                                ]
+                                "call_to_actions":
+                                    [
+                                        {
+                                            "type": "web_url",
+                                            "title": "View Facebook Fan Page",
+                                            "url": "https://www.facebook.com/%E5%AF%A7%E5%A4%8F%E5%A4%9C%E5%B8%82-%E5%86%B0%E5%93%A8%E9%85%AA%E6%A2%A8%E7%89%9B%E5%A5%B6-100576312087765/",
+                                            "webview_height_ratio": "full"
+                                        },
+                                        {
+                                            "type": "web_url",
+                                            "title": "View youtube channel",
+                                            "url": "https://www.youtube.com/",
+                                            "webview_height_ratio": "full"
+                                        },
+                                    ]
                             }
                         ]
                     }
