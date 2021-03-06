@@ -56,9 +56,7 @@ let handleSetupProfileAPI = () => {
     });
 };
 
-let getFacebookUsername = sender_psid => {
-    //curl -X GET "https://graph.facebook.com/<PSID>?fields=first_name,last_name,profile_pic&access_token=<PAGE_ACCESS_TOKEN>"
-
+let handleFacebookProfileAPI = sender_psid => {
     return new Promise((resolve, reject) => {
         try {
             let url = `https://graph.facebook.com/${sender_psid}?fields=first_name,last_name,profile_pic&access_token=${VERIFY_TOKEN}`;
@@ -68,7 +66,6 @@ let getFacebookUsername = sender_psid => {
             }, (err, res, body) => {
                 if (!err) {
                     body = JSON.parse(body);
-                    console.log(body);
                     let username = `${body.last_name} ${body.first_name}`;
                     resolve(username);
                 } else {
@@ -82,7 +79,65 @@ let getFacebookUsername = sender_psid => {
     });
 };
 
+let handleTypingOnAPI = sender_psid => {
+    return new Promise((resolve, reject) => {
+        try {
+            let url = `https://graph.facebook.com/v2.6/me/messages?access_token=${VERIFY_TOKEN}`;
+            let request_body = {
+                "recipient": {
+                    "id": sender_psid
+                },
+                "sender_action": "typing_on"
+            };
+            request({
+                "uri": url,
+                "method": "POST",
+                "json": request_body
+            }, (err, res, body) => {
+                if (!err) {
+                    resolve("Done!")
+                } else {
+                    console.error("Unable to send message:" + err);
+                }
+            });
+        }
+        catch (e) {
+            reject(e);
+        }
+    });
+};
+
+let handleMessageReadAPI = sender_psid => {
+    return new Promise((resolve, reject) => {
+        try {
+            let url = `https://graph.facebook.com/v2.6/me/messages?access_token=${VERIFY_TOKEN}`;
+            let request_body = {
+                "recipient": {
+                    "id": sender_psid
+                },
+                "sender_action": "mark_seen"
+            };
+            request({
+                "uri": url,
+                "method": "POST",
+                "json": request_body
+            }, (err, res, body) => {
+                if (!err) {
+                    resolve("Done!")
+                } else {
+                    console.error("Unable to send message:" + err);
+                }
+            });
+        }
+        catch (e) {
+            reject(e);
+        }
+    });
+};
+
 module.exports = {
     handleSetupProfileAPI: handleSetupProfileAPI,
-    getFacebookUsername: getFacebookUsername,
+    handleFacebookProfileAPI: handleFacebookProfileAPI,
+    handleTypingOnAPI: handleTypingOnAPI,
+    handleMessageReadAPI: handleMessageReadAPI,
 };

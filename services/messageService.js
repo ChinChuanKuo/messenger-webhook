@@ -74,8 +74,8 @@ let handlePostbackAPI = async (sender_psid, received_postback) => {
             response = { "text": "Oops, try sending another image." };
             break;
         case "GET_STARTED":
-            let username = await profile.getFacebookUsername(sender_psid);
-            response = { "text": `hi there. Welcome ${username} to my Tech shop page` };
+            let profiles = await profile.handleFacebookProfileAPI(sender_psid);
+            response = { "text": `hi there. Welcome ${profiles} to my Tech shop page` };
             break;
         default:
             console.log("run default switch case");
@@ -86,7 +86,9 @@ let handlePostbackAPI = async (sender_psid, received_postback) => {
 };
 
 // Sends response messages via the Send API
-let callSendAPI = (sender_psid, response) => {
+let callSendAPI = async (sender_psid, response) => {
+    await profile.handleMessageReadAPI(sender_psid);
+    await profile.handleTypingOnAPI(sender_psid);
     // Construct the message body
     let request_body = {
         "recipient": {
