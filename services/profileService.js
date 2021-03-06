@@ -6,8 +6,9 @@ let VERIFY_TOKEN = process.env.VERIFY_TOKEN;
 let handleSetupProfileAPI = sender_psid => {
     return new Promise(async (resolve, reject) => {
         try {
-            let url = `https://graph.facebook.com/v10.0/me/custom_user_settings?psid=${sender_psid}&access_token=${VERIFY_TOKEN}`;
+            let url = `https://graph.facebook.com/v10.0/me/custom_user_settings?access_token=${VERIFY_TOKEN}`;
             let request_body = {
+                "psid": sender_psid,
                 "persistent_menu": [
                     {
                         "locale": "default",
