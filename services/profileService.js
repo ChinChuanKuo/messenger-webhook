@@ -55,7 +55,7 @@ let handleSetupProfileAPI = () => {
     });
 };
 
-let getFacebookUsername = (sender_psid) => {
+let getFacebookUsername = sender_psid => {
     //curl -X GET "https://graph.facebook.com/<PSID>?fields=first_name,last_name,profile_pic&access_token=<PAGE_ACCESS_TOKEN>"
 
     return new Promise((resolve, reject) => {
