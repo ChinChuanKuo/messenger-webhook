@@ -1,6 +1,5 @@
 require('dotenv').config();
-import chatbot from 'chatbotService';
-import profile from './profileService';
+import chatbot from './chatbotService';
 
 let VERIFY_TOKEN = process.env.VERIFY_TOKEN;
 
@@ -17,7 +16,7 @@ let handleTokenAPI = (mode, token, challenge, res) => {
     }
 }
 
-let handleMessageAPI = (sender_psid, received_message) => {
+let handleMessageAPI = async (sender_psid, received_message) => {
     let response;
     // Check if the message contains text
     if (received_message.text) {
@@ -55,7 +54,7 @@ let handleMessageAPI = (sender_psid, received_message) => {
         }
     }
     // Sends the response message
-    callSendAPI(sender_psid, response);
+    await chatbot.sendMessageAPI(sender_psid, response);
 }
 
 // Handles messaging_postbacks events

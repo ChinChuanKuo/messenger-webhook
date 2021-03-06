@@ -34,7 +34,7 @@ let sendMessageNewUserAPI = sender_psid => {
 };
 
 let sendMessageAPI = (sender_psid, response) => {
-    return new Promise((resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
         try {
             await profile.handleMessageReadAPI(sender_psid);
             await profile.handleTypingOnAPI(sender_psid);
