@@ -1,6 +1,7 @@
 require('dotenv').config();
 import request from 'request';
 import profile from './profileService';
+import template from 'templateMessage';
 
 let VERIFY_TOKEN = process.env.VERIFY_TOKEN;
 
@@ -90,79 +91,7 @@ let sendMessageAPI = (sender_psid, response) => {
 let sendCategoriesAPI = sender_psid => {
     return new Promise(async (resolve, reject) => {
         try {
-            let response = {
-                "attachment": {
-                    "type": "template",
-                    "payload": {
-                        "template_type": "generic",
-                        "elements": [
-                            {
-                                "title": "Welcome 1!",
-                                "image_url": "https://im2.book.com.tw/image/getImage?i=https://www.books.com.tw/img/E05/008/87/E050088731.jpg&v=60360eb7&w=180&h=180",
-                                "subtitle": "We have the right hat for everyone.",
-                                "default_action": {
-                                    "type": "web_url",
-                                    "url": "https://petersfancybrownhats.com/view?item=103",
-                                    "webview_height_ratio": "tall"
-                                },
-                                "buttons": [
-                                    {
-                                        "type": "web_url",
-                                        "url": "https://petersfancybrownhats.com",
-                                        "title": "View Website"
-                                    }, {
-                                        "type": "postback",
-                                        "title": "Start Chatting",
-                                        "payload": "DEVELOPER_DEFINED_PAYLOAD"
-                                    }
-                                ]
-                            },
-                            {
-                                "title": "Welcome 2!",
-                                "image_url": "https://im1.book.com.tw/image/getImage?i=https://www.books.com.tw/img/E05/008/85/E050088574.jpg&v=60346c83&w=180&h=180",
-                                "subtitle": "We have the right hat for everyone.",
-                                "default_action": {
-                                    "type": "web_url",
-                                    "url": "https://petersfancybrownhats.com/view?item=103",
-                                    "webview_height_ratio": "tall"
-                                },
-                                "buttons": [
-                                    {
-                                        "type": "web_url",
-                                        "url": "https://petersfancybrownhats.com",
-                                        "title": "View Website"
-                                    }, {
-                                        "type": "postback",
-                                        "title": "Start Chatting",
-                                        "payload": "DEVELOPER_DEFINED_PAYLOAD"
-                                    }
-                                ]
-                            },
-                            {
-                                "title": "Welcome 3!",
-                                "image_url": "https://im1.book.com.tw/image/getImage?i=https://www.books.com.tw/img/E05/008/85/E050088562.jpg&v=6034695d&w=180&h=180",
-                                "subtitle": "We have the right hat for everyone.",
-                                "default_action": {
-                                    "type": "web_url",
-                                    "url": "https://petersfancybrownhats.com/view?item=103",
-                                    "webview_height_ratio": "tall"
-                                },
-                                "buttons": [
-                                    {
-                                        "type": "web_url",
-                                        "url": "https://petersfancybrownhats.com",
-                                        "title": "View Website"
-                                    }, {
-                                        "type": "postback",
-                                        "title": "Start Chatting",
-                                        "payload": "DEVELOPER_DEFINED_PAYLOAD"
-                                    }
-                                ]
-                            }
-                        ]
-                    }
-                }
-            };
+            let response = template.sendCategoriesTemplate();
             await sendMessageAPI(sender_psid, response);
             resolve("done");
         }
@@ -175,8 +104,8 @@ let sendCategoriesAPI = sender_psid => {
 let sendLookupOrderAPI = sender_psid => {
     return new Promise(async (resolve, reject) => {
         try {
-            /*let response = {};
-            await sendMessageAPI(sender_psid, response);*/
+            let response = template.sendLookupOrderTemplate();
+            await sendMessageAPI(sender_psid, response);
             resolve("done");
         }
         catch (e) {
@@ -188,8 +117,10 @@ let sendLookupOrderAPI = sender_psid => {
 let requestTalkToAgentAPI = sender_psid => {
     return new Promise(async (resolve, reject) => {
         try {
-            /*let response = {};
-            await sendMessageAPI(sender_psid, response);*/
+            let response = {
+                "text": "Ok. Someone real will be with you in a few minutes ^^"
+            };
+            await sendMessageAPI(sender_psid, response);
             resolve("done");
         }
         catch (e) {
@@ -198,10 +129,12 @@ let requestTalkToAgentAPI = sender_psid => {
     });
 };
 
+
 module.exports = {
     sendMessageNewUserAPI: sendMessageNewUserAPI,
     sendMessageAPI: sendMessageAPI,
     sendCategoriesAPI: sendCategoriesAPI,
     sendLookupOrderAPI: sendLookupOrderAPI,
     requestTalkToAgentAPI: requestTalkToAgentAPI,
+    passThreadControlAPI: passThreadControlAPI,
 };

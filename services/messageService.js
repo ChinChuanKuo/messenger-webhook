@@ -71,28 +71,20 @@ let handleMessageAPI = async (sender_psid, received_message) => {
 
 // Handles messaging_postbacks events
 let handlePostbackAPI = async (sender_psid, received_postback) => {
-    let response;
-
-    // Get the payload for the postback
     let payload = received_postback.payload;
-
     // Set the response based on the postback payload
     switch (payload) {
-        case "yes":
-            response = { "text": "Thanks!" };
-            break;
-        case "no":
-            response = { "text": "Oops, try sending another image." };
-            break;
         case "GET_STARTED":
+        case "RESTART_CONVERSATION":
             await chatbot.sendMessageNewUserAPI(sender_psid);
+            break;
+        case "TALK_AGENT":
+            await chatbot.requestTalkToAgentAPI(sender_psid);
             break;
         default:
             console.log("run default switch case");
             break;
     }
-    // Send the message to acknowledge the postback
-    await chatbot.sendMessageAPI(sender_psid, response);
 };
 
 module.exports = {
