@@ -178,7 +178,7 @@ let showHeadphonesAPI = sender_psid => {
     return new Promise(async (resolve, reject) => {
         try {
             let response = template.sendHeadphonesTemplate();
-            await sendMessage(sender_psid, response);
+            await sendMessageAPI(sender_psid, response);
             resolve("done");
         } catch (e) {
             reject(e);
@@ -214,7 +214,7 @@ let backToMainMenuAPI = sender_psid => {
     return new Promise(async (resolve, reject) => {
         try {
             let response = template.backToMainMenuTemplate();
-            await sendMessage(sender_psid, response);
+            await sendMessageAPI(sender_psid, response);
             resolve("done");
         } catch (e) {
             reject(e);
@@ -242,7 +242,7 @@ let takeControlConversationAPI = sender_psid => {
             }, async (err, res, body) => {
                 if (!err) {
                     //send messages
-                    await sendMessage(sender_psid, { "text": "The super bot came back !!!" });
+                    await sendMessageAPI(sender_psid, { "text": "The super bot came back !!!" });
                     await backToMainMenu(sender_psid);
                     resolve('message sent!')
                 } else {
