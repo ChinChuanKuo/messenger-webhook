@@ -1,5 +1,5 @@
 import message from '../services/messageService';
-import profile from '../services/profileService';
+import chatbot from '../services/chatbotService';
 
 let handleGetMessage = (req, res) => {
     // Parse the query params
@@ -17,6 +17,19 @@ let handlePostMessage = async (req, res) => {
         // Iterates over each entry - there may be multiple if batched
         // Returns a '200 OK' response to all requests
         body.entry.forEach(function (entry) {
+            if (entry.standby) {
+                //if user's message is "back" or "exit", return the conversation to the bot
+                let webhook_standby = entry.standby[0];
+                if (webhook_standby && webhook_standby.message) {
+                    if (webhook_standby.message.text === "back" || webhook_standby.message.text === "exit") {
+                        // call function to return the conversation to the primary app
+                        // chatbotService.passThreadControl(webhook_standby.sender.id, "primary");
+                        chatbot.takeControlConversationAPI(webhook_standby.sender.id);
+                    }
+                }
+                return;
+            }
+
             // Gets the message. entry.messaging is an array, but 
             // will only ever contain one message, so we get index 0
             let webhook_event = entry.messaging[0];

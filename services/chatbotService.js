@@ -1,7 +1,7 @@
 require('dotenv').config();
 import request from 'request';
 import profile from './profileService';
-import template from 'templateMessage';
+import template from './templateMessage';
 
 let VERIFY_TOKEN = process.env.VERIFY_TOKEN;
 
@@ -121,6 +121,8 @@ let requestTalkToAgentAPI = sender_psid => {
                 "text": "Ok. Someone real will be with you in a few minutes ^^"
             };
             await sendMessageAPI(sender_psid, response);
+            let app = "page_inbox"
+            await passThreadControlAPI(sender_psid, app);
             resolve("done");
         }
         catch (e) {
@@ -129,12 +131,141 @@ let requestTalkToAgentAPI = sender_psid => {
     });
 };
 
+let passThreadControlAPI = (sender_psid, app) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let target_app_id = "";
+            let metadata = "";
+
+            if (app === "page_inbox") {
+                target_app_id = SECONDARY_RECEIVER_ID;
+                metadata = "Pass thread control to inbox chat";
+            }
+            if (app === "primary") {
+                target_app_id = PRIMARY_RECEIVER_ID;
+                metadata = "Pass thread control to the bot, primary app";
+            }
+            // Construct the message body
+            let request_body = {
+                "recipient": {
+                    "id": sender_psid
+                },
+                "target_app_id": target_app_id,
+                "metadata": metadata
+            };
+
+            // Send the HTTP request to the Messenger Platform
+            request({
+                "uri": "https://graph.facebook.com/v6.0/me/pass_thread_control",
+                "qs": { "access_token": PAGE_ACCESS_TOKEN },
+                "method": "POST",
+                "json": request_body
+            }, (err, res, body) => {
+                console.log(body)
+                if (!err) {
+                    resolve('message sent!')
+                } else {
+                    reject("Unable to send message:" + err);
+                }
+            });
+        } catch (e) {
+            reject(e);
+        }
+    });
+};
+
+let showHeadphonesAPI = sender_psid => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let response = template.sendHeadphonesTemplate();
+            await sendMessage(sender_psid, response);
+            resolve("done");
+        } catch (e) {
+            reject(e);
+        }
+    });
+};
+
+let showTVsAPI = sender_psid => {
+    return new Promise((resolve, reject) => {
+        try {
+            resolve("done");
+        } catch (e) {
+            reject(e);
+        }
+    });
+};
+
+let showPlaystationAPI = sender_psid => {
+    return new Promise((resolve, reject) => {
+        try {
+            resolve("done");
+        } catch (e) {
+            reject(e);
+        }
+    });
+};
+
+let backToCategoriesAPI = sender_psid => {
+    sendCategoriesAPI(sender_psid);
+}
+
+let backToMainMenuAPI = sender_psid => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let response = template.backToMainMenuTemplate();
+            await sendMessage(sender_psid, response);
+            resolve("done");
+        } catch (e) {
+            reject(e);
+        }
+    });
+};
+
+let takeControlConversationAPI = sender_psid => {
+    return new Promise((resolve, reject) => {
+        try {
+            // Construct the message body
+            let request_body = {
+                "recipient": {
+                    "id": sender_psid
+                },
+                "metadata": "Pass this conversation from page inbox to the bot - primary app"
+            };
+
+            // Send the HTTP request to the Messenger Platform
+            request({
+                "uri": "https://graph.facebook.com/v6.0/me/take_thread_control",
+                "qs": { "access_token": PAGE_ACCESS_TOKEN },
+                "method": "POST",
+                "json": request_body
+            }, async (err, res, body) => {
+                if (!err) {
+                    //send messages
+                    await sendMessage(sender_psid, { "text": "The super bot came back !!!" });
+                    await backToMainMenu(sender_psid);
+                    resolve('message sent!')
+                } else {
+                    reject("Unable to send message:" + err);
+                }
+            });
+        } catch (e) {
+            reject(e);
+        }
+    });
+};
+
 
 module.exports = {
-    sendMessageNewUserAPI: sendMessageNewUserAPI,
     sendMessageAPI: sendMessageAPI,
     sendCategoriesAPI: sendCategoriesAPI,
     sendLookupOrderAPI: sendLookupOrderAPI,
+    sendMessageNewUserAPI: sendMessageNewUserAPI,
     requestTalkToAgentAPI: requestTalkToAgentAPI,
-    passThreadControlAPI: passThreadControlAPI,
+    showHeadphonesAPI: showHeadphonesAPI,
+    showTVsAPI: showTVsAPI,
+    showPlaystationAPI: showPlaystationAPI,
+    backToCategoriesAPI: backToCategoriesAPI,
+    backToMainMenuAPI: backToMainMenuAPI,
+    takeControlConversationAPI: takeControlConversationAPI,
 };

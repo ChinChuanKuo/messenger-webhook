@@ -81,6 +81,21 @@ let handlePostbackAPI = async (sender_psid, received_postback) => {
         case "TALK_AGENT":
             await chatbot.requestTalkToAgentAPI(sender_psid);
             break;
+        case "SHOW_HEADPHONES":
+            await chatbot.showHeadphonesAPI(sender_psid);
+            break;
+        case "SHOW_TV":
+            await chatbot.showTVsAPI(sender_psid);
+            break;
+        case "SHOW_PLAYSTATION":
+            await chatbot.showPlaystationAPI(sender_psid);
+            break;
+        case "BACK_TO_CATEGORIES":
+            await chatbot.backToCategoriesAPI(sender_psid);
+            break;
+        case "BACK_TO_MAIN_MENU":
+            await chatbot.backToMainMenuAPI(sender_psid);
+            break;
         default:
             console.log("run default switch case");
             break;
