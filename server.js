@@ -5,6 +5,7 @@ import configViewEngine from './config/viewEngine';
 import initialRouters from './routers/router';
 
 const app = express().use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 configViewEngine(app);
 initialRouters(app);
