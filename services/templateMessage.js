@@ -181,7 +181,7 @@ let sendLookupOrderTemplate = () => {
                         "type": "web_url",
                         "url": `https://petersfancybrownhats.com/view?item=103`,
                         "title": "Set info",
-                        "webview_height_ratio": "tall",
+                        "webview_height_ratio": "tall"
                     },
                     {
                         "type": "postback",
@@ -226,6 +226,12 @@ let setInfoOrderTemplate = () => {
                 "text": "We're checking your order. We will send you a message when the process is complete." +
                     "\nThank you!",
                 "buttons": [
+                    {
+                        "type": "web_url",
+                        "url": `${process.env.URL_WEB_VIEW_ORDER}`,
+                        "title": "Info Lookup Order",
+                        "webview_height_ratio": "tall"
+                    },
                     {
                         "type": "postback",
                         "title": "Main menu",

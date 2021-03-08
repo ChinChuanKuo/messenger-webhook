@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Info Lookup Order</title>
+    <!-- Load Bootstrap 4, Jquery -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/css/style.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="container fix-height">
+        <div class="row">
+            <div class="col-12">
+                <div class="text-center mt-3">
+                    <span class="title">Order lookup</span>
+                </div>
+                <input type="text" id="psid" hidden>
+                <div class="form-group">
+                    <label for="customerName">Customer:</label>
+                    <input type="text" id="customerName" class="form-control" placeholder="Name..." />
+                </div>
+                <div class="form-group">
+                    <label for="email">Email address (<span style="color: red;">*</span>):</label>
+                    <input type="text" id="email" class="form-control" placeholder="Email address..." />
+                    <div class="invalid-feedback">Please fill out your email address</div>
+                </div>
+                <div class="form-group">
+                    <label for="orderNumber">Order number (<span style="color: red;">*</span>):</label>
+                    <input type="text" id="orderNumber" class="form-control" placeholder="Order number..." />
+                    <div class="invalid-feedback">Please fill out your order number</div>
+                </div>
+                <button class="btn btn-primary" id="btnFindOrder">FIND</button>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div class="text-center">
+            <div class="">
+                <span class="mr-3"> &copy; Chatbot Tutorial</span>
+                <span class="ml-3">
+                    Powered by JimmyKuo
+                </span>
+            </div>
+        </div>
+    </footer>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        let facebookAppId = "<%= facebookAppId %>"
+    </script>
+    <script src="/js/order.js"></script>
+</body>
+
+</html>
