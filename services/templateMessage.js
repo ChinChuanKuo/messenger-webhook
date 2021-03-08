@@ -179,9 +179,10 @@ let sendLookupOrderTemplate = () => {
                 "buttons": [
                     {
                         "type": "web_url",
-                        "url": `https://petersfancybrownhats.com/view?item=103`,
-                        "title": "Set info",
-                        "webview_height_ratio": "tall"
+                        "url": `${process.env.URL_WEB_VIEW_ORDER}`,
+                        "title": "Info Lookup Order",
+                        "webview_height_ratio": "tall",
+                        "messenger_extensions": true
                     },
                     {
                         "type": "postback",
@@ -227,12 +228,6 @@ let setInfoOrderTemplate = () => {
                     "\nThank you!",
                 "buttons": [
                     {
-                        "type": "web_url",
-                        "url": `${process.env.URL_WEB_VIEW_ORDER}`,
-                        "title": "Info Lookup Order",
-                        "webview_height_ratio": "tall"
-                    },
-                    {
                         "type": "postback",
                         "title": "Main menu",
                         "payload": "BACK_TO_MAIN_MENU"
@@ -242,6 +237,7 @@ let setInfoOrderTemplate = () => {
         }
     };
 };
+
 
 module.exports = {
     sendCategoriesTemplate: sendCategoriesTemplate,
