@@ -9,7 +9,6 @@
 
 window.extAsyncInit = function () {
     // the Messenger Extensions JS SDK is done loading
-    console.log(facebookAppId);
     MessengerExtensions.getContext(facebookAppId,
         function success(thread_context) {
             // success
@@ -58,12 +57,13 @@ function handleClickButtonFindOrder() {
 
         if (!check) {
             //close webview
-            MessengerExtensions.requestCloseBrowser(function success() {
-                // webview closed
-            }, function error(err) {
-                // an error occurred
-                console.log(err);
-            });
+            MessengerExtensions.requestCloseBrowser(
+                function success() {
+                    // webview closed
+                }, function error(err) {
+                    // an error occurred
+                    console.log(err);
+                });
 
             //send data to node.js server
             $.ajax({

@@ -3,6 +3,7 @@ import chatbot from '../services/chatbotService';
 
 let handleSetInfoOrder = async (req, res) => {
     try {
+        console.log(req.body.psid);
         let customerName = "";
         if (req.body.customerName === "") {
             customerName = "Empty";
