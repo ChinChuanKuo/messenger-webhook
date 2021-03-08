@@ -182,7 +182,6 @@ let sendLookupOrderTemplate = () => {
                         "url": `https://petersfancybrownhats.com/view?item=103`,
                         "title": "Set info",
                         "webview_height_ratio": "tall",
-                        "messenger_extensions": true //false: open the webview in new tab
                     },
                     {
                         "type": "postback",

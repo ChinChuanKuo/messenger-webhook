@@ -206,9 +206,7 @@ let showPlaystationAPI = sender_psid => {
     });
 };
 
-let backToCategoriesAPI = sender_psid => {
-    sendCategoriesAPI(sender_psid);
-}
+let backToCategoriesAPI = sender_psid => sendCategoriesAPI(sender_psid);
 
 let backToMainMenuAPI = sender_psid => {
     return new Promise(async (resolve, reject) => {
