@@ -9,7 +9,6 @@
 
 window.extAsyncInit = function () {
     // the Messenger Extensions JS SDK is done loading
-
     MessengerExtensions.getContext(facebookAppId,
         function success(thread_context) {
             // success
@@ -80,30 +79,3 @@ function handleClickButtonFindOrder() {
         }
     });
 }
-
-$(document).ready(function () {
-    $("#btnFindOrder").on("click", function (e) {
-        let check = validateInputFields();
-
-        let data = {
-            psid: $("#psid").val(),
-            customerName: $("#customerName").val(),
-            email: $("#email").val(),
-            orderNumber: $("#orderNumber").val()
-        };
-
-        if (!check) {
-            $.ajax({
-                url: `${window.location.origin}/set-info-order`,
-                method: "POST",
-                data: data,
-                success: function (data) {
-                    console.log(data);
-                },
-                error: function (error) {
-                    console.log(error);
-                }
-            });
-        }
-    });
-});
