@@ -54,6 +54,7 @@ function handleClickButtonFindOrder() {
             email: $("#email").val(),
             orderNumber: $("#orderNumber").val()
         };
+        console.log(data);
 
         if (!check) {
             //close webview
