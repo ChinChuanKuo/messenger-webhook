@@ -1,15 +1,18 @@
 import path from 'path';
 
-const
-    sourcePath = path.resolve(__dirname, '../views');
+let defaultScreen = (req, res) => {
+    let facebookAppId = process.env.FACEBOOK_APP_ID;
+    return res.render("index.html", { facebookAppId: facebookAppId });
+};
 
-let defaultScreen = (req, res) => res.sendFile(path.join(`${sourcePath}/index.html`));
-
-let profileScreen = (req, res) => res.sendFile(path.join(`${sourcePath}/profile.html`));
+let profileScreen = (req, res) => {
+    let facebookAppId = process.env.FACEBOOK_APP_ID;
+    return res.render("profile.html", { facebookAppId: facebookAppId });
+};
 
 let orderScreen = (req, res) => {
-    let facebookAppid = process.env.FACEBOOK_APP_ID;
-    return res.sendFile(path.join(`${sourcePath}/order.html`), { facebookAppid: facebookAppid });
+    let facebookAppId = process.env.FACEBOOK_APP_ID;
+    return res.render("order.html", { facebookAppId: facebookAppId });
 };
 
 module.exports = {

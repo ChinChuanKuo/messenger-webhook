@@ -9,6 +9,7 @@
 
 window.extAsyncInit = function () {
     // the Messenger Extensions JS SDK is done loading
+    console.log(facebookAppId);
     MessengerExtensions.getContext(facebookAppId,
         function success(thread_context) {
             // success
