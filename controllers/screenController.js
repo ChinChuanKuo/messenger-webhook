@@ -15,8 +15,14 @@ let orderScreen = (req, res) => {
     return res.render("order.html", { facebookAppId: facebookAppId });
 };
 
+let conversationScreen = (req, res) => {
+    let facebookAppId = process.env.FACEBOOK_APP_ID;
+    return res.render("conversation.html", { facebookAppId: facebookAppId });
+}
+
 module.exports = {
     defaultScreen: defaultScreen,
     profileScreen: profileScreen,
-    orderScreen: orderScreen
+    orderScreen: orderScreen,
+    conversationScreen: conversationScreen,
 };
