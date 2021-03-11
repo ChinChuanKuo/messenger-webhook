@@ -1,9 +1,9 @@
-FB.api(
-    `/${facebookAppId}/conversations`,
-    function (response) {
-        if (response && !response.error) {
-            /* handle the result */
-            console.log(response);
-        }
-    }
-);
+function getConversation() {
+    $.get(`graph.facebook.com/${pageId}?fields=conversations{id}`, function (response) {
+        console.log(response);
+    });
+}
+
+$(document).ready(function () {
+    getConversation();
+});
